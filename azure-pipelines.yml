@@ -16,10 +16,8 @@ steps:
     Dockerfile: app/Dockerfile
 
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+- task: PublishBuildArtifacts@1
   inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/*'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
