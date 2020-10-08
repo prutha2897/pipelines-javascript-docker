@@ -6,7 +6,10 @@ pool:
 
 variables:
   imageName: 'pipelines-javascript-docker'
+  Version.MajorMinor: 1.0
+  Version.Revision: $[counter(variables['Version.MajorMinor'],0)]
 
+name: $(Version.MajorMinor).$(Version.Revision)
 steps:
 - task: Docker@2
   displayName: Build an image
@@ -31,8 +34,3 @@ steps:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
   
-- task: Docker@2
-  inputs:
-    repository: 'try'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
